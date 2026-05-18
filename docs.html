@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - API Documentation and Sandbox">
+  <title>API Documentation | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <style>
+    /* Premium Sticky Documentation Grid Layout */
+    .docs-layout-grid {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    .docs-toc-sticky {
+      position: sticky;
+      top: 96px; /* Header is 70px + offset spacing */
+      align-self: start;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    }
+    .docs-toc-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--text-muted);
+      letter-spacing: 0.8px;
+      margin-bottom: 12px;
+    }
+    .docs-toc-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .docs-toc-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-dark);
+      padding: 8px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      display: block;
+    }
+    .docs-toc-link:hover, .docs-toc-link.active {
+      color: var(--brand);
+      background: var(--brand-glow);
+    }
+    .docs-content-container {
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+    }
+    .docs-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+    }
+    .docs-section:hover {
+      transform: translateY(-2px);
+      border-color: var(--brand);
+      box-shadow: 0 12px 30px -10px rgba(2, 132, 199, 0.08), 0 4px 12px rgba(2, 132, 199, 0.03);
+    }
+    .docs-section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 12px;
+    }
+    .docs-para {
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .api-endpoint-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #f1f5f9;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-family: monospace;
+      font-size: 12px;
+      margin-bottom: 24px;
+    }
+    .endpoint-method {
+      background: var(--success);
+      color: #ffffff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 10px;
+    }
+    .endpoint-url {
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+    /* Tabs styling for code snippets */
+    .docs-tabs-bar {
+      display: flex;
+      gap: 4px;
+      background: #0f172a;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      padding: 8px 16px 0 16px;
+      border-bottom: 1px solid #1e293b;
+    }
+    .docs-tab-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .docs-tab-btn:hover {
+      color: #e2e8f0;
+    }
+    .docs-tab-btn.active {
+      background: #1e293b;
+      color: #38bdf8;
+    }
+    .code-editor-block {
+      background: #0f172a;
+      border-bottom-left-radius: 8px;
+      border-bottom-right-radius: 8px;
+      padding: 24px;
+      position: relative;
+    }
+    .code-snippet-pre {
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #cbd5e1;
+      overflow-x: auto;
+      white-space: pre;
+    }
+    .code-copy-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #1e293b;
+      border: 1px solid #334155;
+      color: #94a3b8;
+      width: 32px;
+      height: 32px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .code-copy-btn:hover {
+      color: #ffffff;
+      background: #334155;
+    }
+    /* Sandbox Console Panel styling */
+    .sandbox-panel-row {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .sandbox-form {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .sandbox-console {
+      background: #090d16;
+      border-radius: 8px;
+      padding: 20px;
+      font-family: monospace;
+      font-size: 12px;
+      color: #38bdf8;
+      border: 1px solid #1e293b;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 2px 10px rgba(0,0,0,0.5);
+    }
+    .sandbox-console-header {
+      display: flex;
+      justify-content: space-between;
+      color: #64748b;
+      border-bottom: 1px solid #1e293b;
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+    .sandbox-console-logs {
+      flex: 1;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      color: #a7f3d0;
+      line-height: 1.6;
+    }
+    .console-cyan-badge {
+      color: #38bdf8;
+      font-weight: 700;
+    }
+    .console-success-badge {
+      color: #34d399;
+      font-weight: 700;
+    }
+    .console-error-badge {
+      color: #f87171;
+      font-weight: 700;
+    }
+    @media (max-width: 960px) {
+      .docs-layout-grid {
+        grid-template-columns: 1fr;
+      }
+      .docs-toc-sticky {
+        position: static;
+        margin-bottom: 24px;
+      }
+      .sandbox-panel-row {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <a href="index.html" style="display: block;">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item active" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title">Developer Integration Center</h2>
+        <p class="view-subtitle">Learn how to programmatically dispatch campaigns and run interactive API sandbox dispatches.</p>
+      </div>
+
+      <div class="docs-layout-grid">
+        <!-- Sticky TOC Menu -->
+        <div class="docs-toc-sticky">
+          <div class="docs-toc-title">Guide Topics</div>
+          <div class="docs-toc-list">
+            <a href="#intro" class="docs-toc-link active" onclick="activateTocLink(this)">Introduction</a>
+            <a href="#auth" class="docs-toc-link" onclick="activateTocLink(this)">Authentication</a>
+            <a href="#dispatch" class="docs-toc-link" onclick="activateTocLink(this)">Send Campaign SMS</a>
+            <a href="#errors" class="docs-toc-link" onclick="activateTocLink(this)">Error Codes</a>
+            <a href="#sandbox" class="docs-toc-link" onclick="activateTocLink(this)">Interactive Sandbox</a>
+          </div>
+        </div>
+
+        <!-- Documentation Content Sections -->
+        <div class="docs-content-container">
+          <!-- Section 1 -->
+          <div class="docs-section" id="intro">
+            <h3 class="docs-section-title">Introduction</h3>
+            <p class="docs-para">ASL SMS provides developers with high-availability REST and SOAP APIs to programmatically integrate transaction alerts, notifications, and DLT approved campaign payloads directly into system workflows.</p>
+            <p class="docs-para">All API interactions draw from a centralized wallet balance, routing dispatches globally across premium direct carrier gateways with maximum deliverability performance.</p>
+          </div>
+
+          <!-- Section 2 -->
+          <div class="docs-section" id="auth">
+            <h3 class="docs-section-title">Authentication</h3>
+            <p class="docs-para">ASL SMS uses header-based credential validations. Secure your HTTP API requests by injecting authorized credentials in request payloads.</p>
+            <p class="docs-para">Generate and rotate secure developer credentials inside the <a href="api-keys.html" style="color: var(--brand); font-weight: 700;">API Credentials Manager</a> panel.</p>
+          </div>
+
+          <!-- Section 3 -->
+          <div class="docs-section" id="dispatch">
+            <h3 class="docs-section-title">Send Campaign SMS</h3>
+            <p class="docs-para">Send single alerts or transactional notifications by dispatching a standard HTTP POST request to the endpoint listed below.</p>
+            
+            <div class="api-endpoint-badge">
+              <span class="endpoint-method">POST</span>
+              <span class="endpoint-url">https://api.aslsms.com/v1/sms/send</span>
+            </div>
+
+            <div class="manage-table-container" style="margin-bottom: 24px;">
+              <table style="border: 1px solid var(--border-color);">
+                <thead>
+                  <tr style="background: #f8fafc;">
+                    <th>Parameter</th>
+                    <th>Type</th>
+                    <th>Required</th>
+                    <th>Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-family: monospace; font-weight: 700;">client_id</td>
+                    <td>string</td>
+                    <td style="color: var(--danger); font-weight: 700;">Required</td>
+                    <td>Authorized developer client identifier.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: monospace; font-weight: 700;">client_secret</td>
+                    <td>string</td>
+                    <td style="color: var(--danger); font-weight: 700;">Required</td>
+                    <td>Authorized developer client secret key.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: monospace; font-weight: 700;">sender_id</td>
+                    <td>string</td>
+                    <td style="color: var(--danger); font-weight: 700;">Required</td>
+                    <td>Approved 6-letter DLT Sender ID.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: monospace; font-weight: 700;">mobile</td>
+                    <td>string</td>
+                    <td style="color: var(--danger); font-weight: 700;">Required</td>
+                    <td>Recipient number (including country code, e.g. +91).</td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: monospace; font-weight: 700;">message</td>
+                    <td>string</td>
+                    <td style="color: var(--danger); font-weight: 700;">Required</td>
+                    <td>DLT approved campaign template payload.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Snippets Switcher Tabs -->
+            <div class="docs-tabs-bar">
+              <button class="docs-tab-btn active" onclick="switchSnippetTab('curl', this)">cURL</button>
+              <button class="docs-tab-btn" onclick="switchSnippetTab('node', this)">Node.js</button>
+              <button class="docs-tab-btn" onclick="switchSnippetTab('python', this)">Python</button>
+              <button class="docs-tab-btn" onclick="switchSnippetTab('php', this)">PHP</button>
+            </div>
+            <div class="code-editor-block">
+              <button class="code-copy-btn" onclick="copySnippet()" title="Copy snippet">
+                <i class="fa-solid fa-copy" id="copy-btn-icon"></i>
+              </button>
+              <!-- Snippets code containers -->
+              <pre class="code-snippet-pre" id="snippetContainer">curl -X POST https://api.aslsms.com/v1/sms/send \
+  -H "Content-Type: application/json" \
+  -d '{
+    "client_id": "client_asl_live_9430184",
+    "client_secret": "sk_live_2948194819481048184819",
+    "sender_id": "OPNMSG",
+    "mobile": "+919876543210",
+    "message": "Your login verification OTP code is 8291. Validity is 5 mins."
+  }'</pre>
+            </div>
+          </div>
+
+          <!-- Section 4 -->
+          <div class="docs-section" id="errors">
+            <h3 class="docs-section-title">Error Codes</h3>
+            <p class="docs-para">ASL SMS uses standard HTTP return codes representing request state outcomes. Inspect payloads and correct validation formatting details when error codes are returned.</p>
+
+            <div class="manage-table-container">
+              <table style="border: 1px solid var(--border-color);">
+                <thead>
+                  <tr style="background: #f8fafc;">
+                    <th style="width: 120px;">HTTP Code</th>
+                    <th>Reason Summary</th>
+                    <th>Resolution Guideline</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="font-weight: 700; color: var(--success);">200 OK</td>
+                    <td>SMS Campaign successfully dispatched.</td>
+                    <td>No corrective action needed. Check Sent Logs outbox.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700; color: var(--danger);">401 Unauthorized</td>
+                    <td>Credentials validation invalid or credential rotation in progress.</td>
+                    <td>Double-check header configurations and Secret Keys.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700; color: var(--danger);">403 Forbidden</td>
+                    <td>DLT Sender ID or campaign template payload is not approved.</td>
+                    <td>Register IDs inside Manage Items panels before routing campaigns.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700; color: var(--danger);">422 Unprocessable</td>
+                    <td>Insufficient account balance to process payload transaction.</td>
+                    <td>Top-up your wallet using the "Add Balance (+)" wallet interface.</td>
+                  </tr>
+                  <tr>
+                    <td style="font-weight: 700; color: var(--danger);">500 Error</td>
+                    <td>Gateway channel timeout.</td>
+                    <td>Contact support. Standard retry parameters recommended.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Section 5 -->
+          <div class="docs-section" id="sandbox">
+            <h3 class="docs-section-title">Live API Sandbox Console</h3>
+            <p class="docs-para">Test and query your DLT assets using the live REST endpoint console below. Dispatched campaigns will subtract wallet balance and automatically register in the Sent Items outbox logs.</p>
+
+            <div class="sandbox-panel-row">
+              <!-- Sandbox Input Form -->
+              <div class="sandbox-form">
+                <div class="form-group">
+                  <label for="sandboxSender">Sender ID</label>
+                  <select id="sandboxSender">
+                    <!-- Populated dynamically with approved DLT senders -->
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="sandboxMobile">Recipient Number</label>
+                  <input type="text" id="sandboxMobile" placeholder="e.g. +919876543210">
+                </div>
+                <div class="form-group">
+                  <label for="sandboxMsg">Message Body</label>
+                  <textarea id="sandboxMsg" rows="3" placeholder="Campaign template payload (Must fit sender ID rules)"></textarea>
+                </div>
+                <button class="btn-primary" onclick="runSandboxRequest()" style="align-self: flex-start;" id="sandboxRunBtn">
+                  <i class="fa-solid fa-play"></i><span>Run API Request</span>
+                </button>
+              </div>
+
+              <!-- Sandbox Console Output screen -->
+              <div class="sandbox-console">
+                <div class="sandbox-console-header">
+                  <span>REST TRANSACTION TRACE TERMINAL</span>
+                  <span id="sandboxStatusBadge">READY</span>
+                </div>
+                <div class="sandbox-console-logs" id="sandboxTerminal">System trace initialized. Waiting for transaction execution...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+    }
+
+    // Dynamic loading of approved Sender IDs in the sandbox form dropdown selector
+    function loadSandboxSenders() {
+      const senders = JSON.parse(localStorage.getItem('asl_senders') || '[]');
+      const select = document.getElementById('sandboxSender');
+      if (select) {
+        if (senders.length === 0) {
+          select.innerHTML = `<option value="">No Approved Senders Found</option>`;
+        } else {
+          select.innerHTML = senders.map(s => `<option value="${s.name}">${s.name}</option>`).join('');
+        }
+      }
+    }
+
+    loadSandboxSenders();
+
+    // Code Switcher Tabs logic
+    const snippets = {
+      curl: `curl -X POST https://api.aslsms.com/v1/sms/send \\
+  -H "Content-Type: application/json" \\
+  -d '{
+    "client_id": "client_asl_live_9430184",
+    "client_secret": "sk_live_2948194819481048184819",
+    "sender_id": "OPNMSG",
+    "mobile": "+919876543210",
+    "message": "Your login verification OTP code is 8291. Validity is 5 mins."
+  }'`,
+      node: `const axios = require('axios');
+
+axios.post('https://api.aslsms.com/v1/sms/send', {
+  client_id: 'client_asl_live_9430184',
+  client_secret: 'sk_live_2948194819481048184819',
+  sender_id: 'OPNMSG',
+  mobile: '+919876543210',
+  message: 'Your login verification OTP code is 8291. Validity is 5 mins.'
+})
+.then(res => console.log('Response Status:', res.status))
+.catch(err => console.error('Error dispatching SMS:', err.message));`,
+      python: `import requests
+
+payload = {
+    "client_id": "client_asl_live_9430184",
+    "client_secret": "sk_live_2948194819481048184819",
+    "sender_id": "OPNMSG",
+    "mobile": "+919876543210",
+    "message": "Your login verification OTP code is 8291. Validity is 5 mins."
+}
+
+res = requests.post("https://api.aslsms.com/v1/sms/send", json=payload)
+print(f"Status Code: {res.status_code}")
+print(res.json())`,
+      php: `<?php
+
+$curl = curl_init();
+
+curl_setopt_array($curl, [
+  CURLOPT_URL => "https://api.aslsms.com/v1/sms/send",
+  CURLOPT_RETURNTRANSFER => true,
+  CURLOPT_ENCODING => "",
+  CURLOPT_MAXREDIRS => 10,
+  CURLOPT_TIMEOUT => 30,
+  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+  CURLOPT_CUSTOMREQUEST => "POST",
+  CURLOPT_POSTFIELDS => json_encode([
+    "client_id" => "client_asl_live_9430184",
+    "client_secret" => "sk_live_2948194819481048184819",
+    "sender_id" => "OPNMSG",
+    "mobile" => "+919876543210",
+    "message" => "Your login verification OTP code is 8291. Validity is 5 mins."
+  ]),
+  CURLOPT_HTTPHEADER => [
+    "Content-Type: application/json"
+  ],
+]);
+
+$response = curl_exec($curl);
+$err = curl_error($curl);
+
+curl_close($curl);
+echo $err ? "Error: " . $err : $response;`
+    };
+
+    let activeLang = 'curl';
+
+    function switchSnippetTab(lang, btnElement) {
+      // Toggle active states
+      const tabs = btnElement.parentElement.querySelectorAll('.docs-tab-btn');
+      tabs.forEach(t => t.classList.remove('active'));
+      btnElement.classList.add('active');
+
+      activeLang = lang;
+      document.getElementById('snippetContainer').textContent = snippets[lang];
+    }
+
+    function copySnippet() {
+      const code = snippets[activeLang];
+      navigator.clipboard.writeText(code).then(() => {
+        const icon = document.getElementById('copy-btn-icon');
+        icon.className = "fa-solid fa-check";
+        showToast("📋 SDK Snippet Copied to Clipboard!");
+        setTimeout(() => {
+          icon.className = "fa-solid fa-copy";
+        }, 1500);
+      }).catch(err => {
+        showToast("⚠️ Clipboard copying failed!");
+      });
+    }
+
+    function activateTocLink(linkElement) {
+      const links = linkElement.parentElement.querySelectorAll('.docs-toc-link');
+      links.forEach(l => l.classList.remove('active'));
+      linkElement.classList.add('active');
+    }
+
+    // Live Sandbox REST Simulator Action
+    function runSandboxRequest() {
+      const sender = document.getElementById('sandboxSender').value;
+      const mobile = document.getElementById('sandboxMobile').value.trim();
+      const msg = document.getElementById('sandboxMsg').value.trim();
+
+      if (!sender) {
+        showToast("⚠️ Please select an approved DLT Sender ID first!");
+        return;
+      }
+      if (!mobile) {
+        showToast("⚠️ Recipient mobile number is required!");
+        return;
+      }
+      if (!msg) {
+        showToast("⚠️ Message content payload is required!");
+        return;
+      }
+
+      // Check account wallet balance first
+      let activeUser = JSON.parse(sessionStorage.getItem('asl_user') || '{}');
+      if (activeUser.balance < 1) {
+        showToast("⚠️ Insufficient balance to process REST transaction!");
+        return;
+      }
+
+      const runBtn = document.getElementById('sandboxRunBtn');
+      const origContent = runBtn.innerHTML;
+      runBtn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>Dispatched...</span>`;
+      runBtn.disabled = true;
+
+      const term = document.getElementById('sandboxTerminal');
+      const statusBadge = document.getElementById('sandboxStatusBadge');
+
+      statusBadge.textContent = "DISPATCHING...";
+      statusBadge.className = "console-cyan-badge";
+
+term.innerHTML = `> POST https://api.aslsms.com/v1/sms/send HTTP/1.1
+> Authorization: Bearer ${localStorage.getItem('asl_client_secret') || 'sk_live_2948194819481048184819'}
+> Content-Type: application/json
+> 
+> Payload: {
+>   "client_id": "${localStorage.getItem('asl_client_id') || 'client_asl_live_9430184'}",
+>   "sender_id": "${sender}",
+>   "mobile": "${mobile}",
+>   "message": "${msg}"
+> }
+
+* Connecting to core carrier routing engine...`;
+
+      setTimeout(() => {
+        // Subtract balance from user session and update wallet
+        activeUser.balance = Math.max(0, activeUser.balance - 1);
+        sessionStorage.setItem('asl_user', JSON.stringify(activeUser));
+        
+        // Update headers in real-time!
+        document.getElementById('header-balance').textContent = parseFloat(activeUser.balance).toFixed(2) + ' SMS';
+
+        // Register sandbox logs inside outgoing Campaign Sent Outbox
+        const now = new Date();
+        const timeStr = now.toLocaleDateString() + " " + now.toLocaleTimeString().toLowerCase();
+        
+        let sentLogs = JSON.parse(localStorage.getItem('asl_sent_logs') || '[]');
+        sentLogs.unshift({
+          id: sentLogs.length + 1,
+          to: mobile,
+          sender: sender,
+          text: msg,
+          time: timeStr,
+          latency: '0.4s',
+          status: 'Delivered'
+        });
+        localStorage.setItem('asl_sent_logs', JSON.stringify(sentLogs));
+
+        statusBadge.textContent = "200 OK";
+        statusBadge.className = "console-success-badge";
+
+        const transId = 'tx_' + Math.floor(10000000000000 + Math.random() * 90000000000000);
+
+term.innerHTML = `> POST https://api.aslsms.com/v1/sms/send HTTP/1.1
+> Authorization: Bearer ${localStorage.getItem('asl_client_secret') || 'sk_live_2948194819481048184819'}
+> Content-Type: application/json
+> 
+> Payload: {
+>   "client_id": "${localStorage.getItem('asl_client_id') || 'client_asl_live_9430184'}",
+>   "sender_id": "${sender}",
+>   "mobile": "${mobile}",
+>   "message": "${msg}"
+> }
+
+* Connecting to core carrier routing engine...
+* Direct route handover complete. Delivery status callback received.
+* Handover latency: 0.4s
+* Wallet transaction charge: 1.00 SMS
+
+< HTTP/1.1 <span class="console-success-badge">200 OK</span>
+< Content-Type: application/json
+< 
+< <span class="console-cyan-badge">{
+<   "status": "success",
+<   "transaction_id": "${transId}",
+<   "handover_latency": "0.4s",
+<   "message_units": 1,
+<   "remaining_balance": ${parseFloat(activeUser.balance).toFixed(2)}
+< }</span>`;
+
+        runBtn.innerHTML = origContent;
+        runBtn.disabled = false;
+        showToast("🚀 REST Sandbox Campaign Dispatched Successfully!");
+      }, 1200);
+    }
+  </script>
+</body>
+</html>

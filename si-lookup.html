@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - Network Carrier Si Lookup">
+  <title>Si Lookup | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item active">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title">Si Lookup Center</h2>
+        <p class="view-subtitle">Query real-time network carriers, circle regions, and DND registration profiles instantly.</p>
+      </div>
+
+      <div class="lookup-card">
+        <div class="form-group" style="margin-bottom: 0;">
+          <label for="lookupMobileNumber">Enter Mobile Number</label>
+          <div class="lookup-input-group">
+            <input type="text" id="lookupMobileNumber" placeholder="e.g. 9876543210 (10 Digits)">
+            <button class="btn-primary" onclick="performLookup()" id="lookupBtn">
+              <i class="fa-solid fa-magnifying-glass"></i><span>Lookup</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="lookup-result" id="lookupResultPanel">
+          <div class="lookup-details-grid">
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">Recipient</div>
+              <div class="lookup-detail-value" id="res-mobile">+91 -</div>
+            </div>
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">Carrier Network</div>
+              <div class="lookup-detail-value" id="res-carrier">-</div>
+            </div>
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">Circle / Region</div>
+              <div class="lookup-detail-value" id="res-region">-</div>
+            </div>
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">DND Status</div>
+              <div class="lookup-detail-value" id="res-dnd">-</div>
+            </div>
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">Latency Status</div>
+              <div class="lookup-detail-value" id="res-latency" style="color: var(--success);">-</div>
+            </div>
+            <div class="lookup-detail-item">
+              <div class="lookup-detail-label">Route Quality</div>
+              <div class="lookup-detail-value" id="res-route" style="color: var(--brand);">-</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+    }
+
+    function performLookup() {
+      const input = document.getElementById('lookupMobileNumber').value.trim();
+      const cleanNum = input.replace(/[^0-9]/g, '');
+
+      if (cleanNum.length < 10) {
+        showToast("⚠️ Please enter a valid 10-digit mobile number!");
+        return;
+      }
+
+      const btn = document.getElementById('lookupBtn');
+      const origContent = btn.innerHTML;
+      btn.innerHTML = `<i class="fa-solid fa-circle-notch fa-spin"></i><span>Querying...</span>`;
+      btn.disabled = true;
+
+      // Simulated network telecom metadata generators
+      const networks = ["Reliance Jio Infocomm Ltd", "Bharti Airtel Ltd", "Vodafone Idea Ltd (Vi)", "Bharat Sanchar Nigam Ltd (BSNL)"];
+      const circles = ["Delhi NCR", "Maharashtra & Goa", "Karnataka", "West Bengal & Kolkata", "Mumbai Metro", "Tamil Nadu & Chennai"];
+      const dndList = ["Non-DND (Fully Accessible)", "DND Active (Transactional Only)", "DND Active (Fully Blocked)"];
+
+      setTimeout(() => {
+        // Pseudo-random select based on the input number hash so same input gets same carrier result!
+        const hash = [...cleanNum].reduce((acc, c) => acc + parseInt(c), 0);
+        
+        const carrier = networks[hash % networks.length];
+        const circle = circles[hash % circles.length];
+        const dnd = dndList[hash % dndList.length];
+        const latency = (0.2 + (hash % 10) * 0.1).toFixed(1) + 's';
+        const route = (hash % 2 === 0) ? "Premium Direct-Route (A++ Grade)" : "Standard Gateway Route (B+ Grade)";
+
+        document.getElementById('res-mobile').textContent = "+91 " + cleanNum.slice(-10);
+        document.getElementById('res-carrier').textContent = carrier;
+        document.getElementById('res-region').textContent = circle;
+        document.getElementById('res-dnd').textContent = dnd;
+        document.getElementById('res-latency').textContent = latency;
+        document.getElementById('res-route').textContent = route;
+
+        // Visual presentation show panel
+        document.getElementById('lookupResultPanel').classList.add('active');
+        
+        btn.innerHTML = origContent;
+        btn.disabled = false;
+        showToast("✅ Carrier intelligence results fetched successfully!");
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Login to ASL SMS - Bulk SMS Marketing Platform">
+  <title>Login | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Standardized Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="auth-body">
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <div class="login-card">
+    <div class="logo-wrap">
+      <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS Logo">
+      <p class="logo-subtitle">Bulk SMS Marketing Platform</p>
+    </div>
+
+    <!-- Hint box -->
+    <div class="hint-box">
+      <i class="fa-solid fa-circle-info"></i>
+      <div>
+        <strong>Demo Login</strong><br>
+        Email: <span>admin@aslsms.com</span><br>
+        Pass: <span>Admin@123</span>
+      </div>
+    </div>
+
+    <form id="loginForm" autocomplete="off" novalidate>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <div class="input-wrap">
+          <i class="fa-regular fa-envelope input-icon"></i>
+          <input type="email" id="email" placeholder="admin@aslsms.com" autocomplete="off">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="password">Password</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-lock input-icon"></i>
+          <input type="password" id="password" placeholder="Enter password" autocomplete="off">
+          <button type="button" class="eye-btn" id="eyeBtn" aria-label="Toggle password visibility">
+            <i class="fa-regular fa-eye" id="eyeIcon"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label class="checkbox-wrap">
+          <input type="checkbox" id="remember">
+          <span class="checkbox-label">Remember me</span>
+        </label>
+        <a href="reset-password.html" class="forgot-link">Forgot password?</a>
+      </div>
+
+      <button type="submit" class="btn-login" id="loginBtn">
+        <span id="btnText">Sign In</span>
+        <div class="btn-spinner" id="btnSpinner"></div>
+      </button>
+
+      <div class="error-msg" id="errorMsg">
+        <i class="fa-solid fa-circle-xmark"></i>&nbsp;Invalid credentials. Use <strong>admin@aslsms.com</strong> / <strong>Admin@123</strong>
+      </div>
+    </form>
+
+    <div class="login-footer">2026 © ASL SMS &nbsp; · &nbsp; Powered by <a href="#" class="footer-bottom-link" target="_blank">ASL Solutions Tech Pvt. Ltd.</a></div>
+  </div>
+
+  <!-- Core Utilities -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    // Eye toggle using global helper
+    const eyeBtn = document.getElementById('eyeBtn');
+    eyeBtn.addEventListener('click', () => {
+      togglePasswordVisibility('password', 'eyeIcon');
+    });
+
+    const form = document.getElementById('loginForm');
+    const btnText = document.getElementById('btnText');
+    const btnSpinner = document.getElementById('btnSpinner');
+    const errorMsg = document.getElementById('errorMsg');
+
+    const VALID = { email: 'admin@aslsms.com', password: 'Admin@123' };
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      errorMsg.style.display = 'none';
+      const email = document.getElementById('email').value.trim();
+      const pass  = document.getElementById('password').value;
+
+      if (!email || !pass) {
+        errorMsg.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Please fill in both fields.';
+        errorMsg.style.display = 'block';
+        return;
+      }
+
+      // Show spinner
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'block';
+
+      setTimeout(() => {
+        if (email === VALID.email && pass === VALID.password) {
+          sessionStorage.setItem('asl_user', JSON.stringify({ name: 'Admin User', email, role: 'Administrator', balance: 907.96 }));
+          window.location.href = 'dashboard.html';
+        } else {
+          btnText.style.display = 'block';
+          btnSpinner.style.display = 'none';
+          errorMsg.innerHTML = '<i class="fa-solid fa-circle-xmark"></i> Invalid credentials.';
+          errorMsg.style.display = 'block';
+        }
+      }, 800);
+    });
+  </script>
+</body>
+</html>

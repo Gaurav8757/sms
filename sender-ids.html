@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - Manage Sender IDs">
+  <title>Manage Sender IDs | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <a href="index.html" style="display: block;">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item active" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title">Manage Sender Id</h2>
+        <p class="view-subtitle">Register and manage your administrative 6-letter approved DLT Sender IDs.</p>
+      </div>
+
+      <div class="manage-controls">
+        <div class="search-inputs-row">
+          <div>
+            <label>Sender ID</label>
+            <input type="text" id="filterSenderId" placeholder="Sender ID" oninput="filterSenderIdsTable()">
+          </div>
+          <div>
+            <label>Entity ID</label>
+            <input type="text" id="filterEntityId" placeholder="Entity ID" oninput="filterSenderIdsTable()">
+          </div>
+        </div>
+        <button class="btn-primary" onclick="openSenderModal()">
+          <i class="fa-solid fa-plus"></i><span>Add Sender Id</span>
+        </button>
+      </div>
+
+      <div class="manage-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Sender ID</th>
+              <th>Entity ID</th>
+              <th>Description</th>
+              <th>Created At</th>
+              <th>Modified At</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="senderTableBody">
+            <!-- Dynamically populated from localStorage -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination-row" style="margin-top: 24px;">
+        <button class="pagination-btn">‹</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- SENDER ID MODAL -->
+  <div class="modal-overlay" id="senderModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">New Sender Id</h3>
+        <button class="modal-close" onclick="closeSenderModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="newSenderName">Sender Id</label>
+          <input type="text" id="newSenderName" placeholder="6-letter Sender ID (e.g. OPNMSG)">
+        </div>
+        <div class="form-group">
+          <label for="newSenderEntity">Entity Id</label>
+          <input type="text" id="newSenderEntity" placeholder="DLT Registered Entity ID">
+        </div>
+        <div class="form-group">
+          <label for="newSenderDesc">Description</label>
+          <input type="text" id="newSenderDesc" placeholder="Context or brand purpose (Optional)">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit-theme" onclick="saveSenderId()">Submit</button>
+        <button class="btn-cancel-white" onclick="closeSenderModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+    }
+
+    function getSenders() { 
+      return JSON.parse(localStorage.getItem('asl_senders') || '[]'); 
+    }
+    function setSenders(data) { 
+      localStorage.setItem('asl_senders', JSON.stringify(data)); 
+    }
+
+    function openSenderModal() {
+      document.getElementById('newSenderName').value = "";
+      document.getElementById('newSenderEntity').value = "";
+      document.getElementById('newSenderDesc').value = "";
+      document.getElementById('senderModal').classList.add('open');
+    }
+
+    function closeSenderModal() {
+      document.getElementById('senderModal').classList.remove('open');
+    }
+
+    function renderSenderIdsTable() {
+      const senders = getSenders();
+      const tbody = document.getElementById('senderTableBody');
+      if (tbody) {
+        tbody.innerHTML = senders.map((item, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td style="font-weight: 700; color: var(--brand);">${item.name}</td>
+            <td>${item.entityId}</td>
+            <td style="color: var(--text-muted); font-size: 12px;">${item.desc || ''}</td>
+            <td style="color: var(--text-muted);">${item.created}</td>
+            <td style="color: var(--text-muted);">${item.modified}</td>
+            <td>
+              <span class="badge ${item.status === 'Approved' ? 'success' : 'warning'}">${item.status}</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function saveSenderId() {
+      const name = document.getElementById('newSenderName').value.trim().toUpperCase();
+      const entity = document.getElementById('newSenderEntity').value.trim();
+      const desc = document.getElementById('newSenderDesc').value.trim();
+
+      if (!name || !entity) {
+        showToast("⚠️ Sender Id and Entity Id are required!");
+        return;
+      }
+
+      if (name.length !== 6) {
+        showToast("⚠️ Sender ID must be exactly 6 characters!");
+        return;
+      }
+
+      let senders = getSenders();
+      const now = new Date();
+      const timeStr = now.toLocaleDateString() + " " + now.toLocaleTimeString().toLowerCase();
+
+      senders.push({
+        id: senders.length + 1,
+        name,
+        entityId: entity,
+        desc,
+        created: timeStr,
+        modified: timeStr,
+        status: 'Approved'
+      });
+
+      setSenders(senders);
+      closeSenderModal();
+      showToast("✅ Sender ID Added Successfully!");
+      renderSenderIdsTable();
+    }
+
+    function filterSenderIdsTable() {
+      const sVal = document.getElementById('filterSenderId').value.trim().toUpperCase();
+      const eVal = document.getElementById('filterEntityId').value.trim();
+      const senders = getSenders();
+
+      const filtered = senders.filter(item => 
+        (sVal === "" || item.name.includes(sVal)) && 
+        (eVal === "" || item.entityId.includes(eVal))
+      );
+
+      const tbody = document.getElementById('senderTableBody');
+      if (tbody) {
+        tbody.innerHTML = filtered.map((item, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td style="font-weight: 700; color: var(--brand);">${item.name}</td>
+            <td>${item.entityId}</td>
+            <td style="color: var(--text-muted); font-size: 12px;">${item.desc || ''}</td>
+            <td style="color: var(--text-muted);">${item.created}</td>
+            <td style="color: var(--text-muted);">${item.modified}</td>
+            <td>
+              <span class="badge ${item.status === 'Approved' ? 'success' : 'warning'}">${item.status}</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Initialize layout list
+    renderSenderIdsTable();
+  </script>
+</body>
+</html>

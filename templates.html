@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - Manage Templates">
+  <title>Manage Templates | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <a href="index.html" style="display: block;">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item active" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title">Manage Templates</h2>
+        <p class="view-subtitle">Define, search, and manage approved message payload templates linked with DLT tokens.</p>
+      </div>
+
+      <div class="manage-controls">
+        <div class="search-inputs-row">
+          <div>
+            <label>Sender Name</label>
+            <input type="text" id="filterSender" placeholder="Sender (e.g. OPNMSG)" oninput="filterTemplatesTable()">
+          </div>
+          <div>
+            <label>Template ID</label>
+            <input type="text" id="filterTemplateId" placeholder="Template ID" oninput="filterTemplatesTable()">
+          </div>
+        </div>
+        <button class="btn-primary" onclick="openTemplateModal()">
+          <i class="fa-solid fa-plus"></i><span>Add Template</span>
+        </button>
+      </div>
+
+      <div class="manage-table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 50px;">#</th>
+              <th>Sender</th>
+              <th>Template ID</th>
+              <th>Content</th>
+              <th>Created At</th>
+              <th>Modified At</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="templatesTableBody">
+            <!-- Dynamically populated from localStorage -->
+          </tbody>
+        </table>
+      </div>
+      
+      <div class="pagination-row" style="margin-top: 24px;">
+        <button class="pagination-btn">‹</button>
+        <button class="pagination-btn active">1</button>
+        <button class="pagination-btn">›</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- TEMPLATE MODAL -->
+  <div class="modal-overlay" id="templateModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title">New DLT Template</h3>
+        <button class="modal-close" onclick="closeTemplateModal()">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label for="newTemplateSender">Sender ID</label>
+          <select id="newTemplateSender">
+            <!-- Populated dynamically with approved sender IDs -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="newTemplateIdInput">Template Id</label>
+          <input type="text" id="newTemplateIdInput" placeholder="DLT Template ID (e.g. 1407...)">
+        </div>
+        <div class="form-group">
+          <label for="newTemplateContentInput">Content</label>
+          <textarea id="newTemplateContentInput" rows="4" oninput="updateCharCount(this)" placeholder="Message content body. Use {#var#} for dynamic values."></textarea>
+          <span style="font-size: 11px; color: var(--text-muted); font-weight: 600; margin-top: 4px;" id="charCounter">Length 0</span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-submit-theme" onclick="saveTemplate()">Submit</button>
+        <button class="btn-cancel-white" onclick="closeTemplateModal()">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+    }
+
+    function getSenders() { 
+      return JSON.parse(localStorage.getItem('asl_senders') || '[]'); 
+    }
+    function getTemplates() { 
+      return JSON.parse(localStorage.getItem('asl_templates_full') || '[]'); 
+    }
+    function setTemplates(data) { 
+      localStorage.setItem('asl_templates_full', JSON.stringify(data)); 
+    }
+
+    function updateCharCount(textarea) {
+      const label = document.getElementById('charCounter');
+      if (label) {
+        label.textContent = `Length ${textarea.value.length}`;
+      }
+    }
+
+    function openTemplateModal() {
+      // Dynamic loading of approved DLT Sender IDs inside the selector dropdown
+      const senders = getSenders();
+      const selector = document.getElementById('newTemplateSender');
+      if (selector) {
+        if (senders.length === 0) {
+          selector.innerHTML = `<option value="">No Approved Senders Found</option>`;
+        } else {
+          selector.innerHTML = senders.map(s => `<option value="${s.name}">${s.name} (${s.entityId})</option>`).join('');
+        }
+      }
+      
+      document.getElementById('newTemplateIdInput').value = "";
+      document.getElementById('newTemplateContentInput').value = "";
+      document.getElementById('charCounter').textContent = "Length 0";
+      document.getElementById('templateModal').classList.add('open');
+    }
+
+    function closeTemplateModal() {
+      document.getElementById('templateModal').classList.remove('open');
+    }
+
+    function renderTemplatesTable() {
+      const templates = getTemplates();
+      const tbody = document.getElementById('templatesTableBody');
+      if (tbody) {
+        tbody.innerHTML = templates.map((item, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td style="font-weight: 700; color: var(--brand);">${item.senderName}</td>
+            <td>${item.templateId}</td>
+            <td style="color: var(--text-dark); font-size: 13px; max-width: 300px; word-break: break-all;">${item.content}</td>
+            <td style="color: var(--text-muted);">${item.created}</td>
+            <td style="color: var(--text-muted);">${item.modified}</td>
+            <td>
+              <span class="badge ${item.status === 'Approved' ? 'success' : 'warning'}">${item.status}</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    function saveTemplate() {
+      const sender = document.getElementById('newTemplateSender').value;
+      const templateId = document.getElementById('newTemplateIdInput').value.trim();
+      const content = document.getElementById('newTemplateContentInput').value.trim();
+
+      if (!sender) {
+        showToast("⚠️ Please register and select an approved Sender ID first!");
+        return;
+      }
+      if (!templateId || !content) {
+        showToast("⚠️ Template ID and Content body are required!");
+        return;
+      }
+
+      let templates = getTemplates();
+      const now = new Date();
+      const timeStr = now.toLocaleDateString() + " " + now.toLocaleTimeString().toLowerCase();
+
+      templates.push({
+        id: templates.length + 1,
+        senderName: sender,
+        templateId,
+        content,
+        created: timeStr,
+        modified: timeStr,
+        status: 'Approved'
+      });
+
+      setTemplates(templates);
+      closeTemplateModal();
+      showToast("Campaign Template Added & Approved Successfully!");
+      renderTemplatesTable();
+    }
+
+    function filterTemplatesTable() {
+      const senderVal = document.getElementById('filterSender').value.trim().toUpperCase();
+      const idVal = document.getElementById('filterTemplateId').value.trim();
+      const templates = getTemplates();
+
+      const filtered = templates.filter(item => 
+        (senderVal === "" || item.senderName.includes(senderVal)) && 
+        (idVal === "" || item.templateId.includes(idVal))
+      );
+
+      const tbody = document.getElementById('templatesTableBody');
+      if (tbody) {
+        tbody.innerHTML = filtered.map((item, idx) => `
+          <tr>
+            <td>${idx + 1}</td>
+            <td style="font-weight: 700; color: var(--brand);">${item.senderName}</td>
+            <td>${item.templateId}</td>
+            <td style="color: var(--text-dark); font-size: 13px; max-width: 300px; word-break: break-all;">${item.content}</td>
+            <td style="color: var(--text-muted);">${item.created}</td>
+            <td style="color: var(--text-muted);">${item.modified}</td>
+            <td>
+              <span class="badge ${item.status === 'Approved' ? 'success' : 'warning'}">${item.status}</span>
+            </td>
+          </tr>
+        `).join('');
+      }
+    }
+
+    // Initialize layout list
+    renderTemplatesTable();
+  </script>
+</body>
+</html>

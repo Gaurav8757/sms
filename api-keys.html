@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - Developer API Keys">
+  <title>API Keys | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <a href="index.html" style="display: block;">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item active" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title">API Credentials Manager</h2>
+        <p class="view-subtitle">Retrieve, toggle, copy, and rotate secure keys to connect your gateway system with our SOAP/REST endpoints.</p>
+      </div>
+
+      <div class="api-card">
+        <div class="api-keys-grid">
+          <!-- Client ID -->
+          <div class="api-key-box">
+            <div class="api-key-header">
+              <span class="api-key-label">Account Client ID</span>
+              <span class="api-key-badge live">Live</span>
+            </div>
+            <div class="api-key-input-row">
+              <input type="text" id="apiClientId" value="client_asl_live_9430184" readonly>
+              <button class="api-key-action-btn" onclick="copyKey('apiClientId')" title="Copy Client ID">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Secret Key -->
+          <div class="api-key-box">
+            <div class="api-key-header">
+              <span class="api-key-label">API Client Secret</span>
+              <span class="api-key-badge live">Live</span>
+            </div>
+            <div class="api-key-input-row">
+              <input type="password" id="apiSecretKey" value="sk_live_2948194819481048184819" readonly>
+              <button class="api-key-action-btn" onclick="toggleSecretVisibility()" id="toggleSecretBtn" title="Show Secret">
+                <i class="fa-solid fa-eye" id="secretEyeIcon"></i>
+              </button>
+              <button class="api-key-action-btn" onclick="copyKey('apiSecretKey')" title="Copy Secret">
+                <i class="fa-solid fa-copy"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="api-warning-row">
+          <i class="fa-solid fa-triangle-exclamation" style="font-size: 16px;"></i>
+          <span><strong>Do not share these keys:</strong> Anyone with access to these credentials can dispatch bulk SMS campaigns drawing directly from your financial wallet balance.</span>
+        </div>
+
+        <div class="api-card-footer">
+          <button class="btn-rotate" onclick="rotateSecretCredentials()">
+            <i class="fa-solid fa-arrows-rotate"></i><span>Rotate Credentials</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+    }
+
+    if (!localStorage.getItem('asl_client_id')) {
+      localStorage.setItem('asl_client_id', 'client_asl_live_9430184');
+      localStorage.setItem('asl_client_secret', 'sk_live_2948194819481048184819');
+    }
+
+    // Populate saved keys
+    document.getElementById('apiClientId').value = localStorage.getItem('asl_client_id');
+    document.getElementById('apiSecretKey').value = localStorage.getItem('asl_client_secret');
+
+    function toggleSecretVisibility() {
+      const field = document.getElementById('apiSecretKey');
+      const icon = document.getElementById('secretEyeIcon');
+      const btn = document.getElementById('toggleSecretBtn');
+
+      if (field.type === "password") {
+        field.type = "text";
+        icon.className = "fa-solid fa-eye-slash";
+        btn.title = "Hide Secret";
+      } else {
+        field.type = "password";
+        icon.className = "fa-solid fa-eye";
+        btn.title = "Show Secret";
+      }
+    }
+
+    function copyKey(elementId) {
+      const field = document.getElementById(elementId);
+      field.select();
+      field.setSelectionRange(0, 99999); // For mobile devices
+      
+      navigator.clipboard.writeText(field.value).then(() => {
+        showToast("📋 Copied to Clipboard Successfully!");
+      }).catch(err => {
+        showToast("⚠️ Clipboard copying failed!");
+      });
+    }
+
+    function rotateSecretCredentials() {
+      if (confirm("⚠️ WARNING: Rotating credentials will instantly revoke access for the current Client Secret. Are you sure you want to proceed?")) {
+        const newClientId = 'client_asl_live_' + Math.floor(1000000 + Math.random() * 9000000);
+        const newSecret = 'sk_live_' + Array.from({length: 24}, () => Math.floor(Math.random() * 10)).join('');
+
+        localStorage.setItem('asl_client_id', newClientId);
+        localStorage.setItem('asl_client_secret', newSecret);
+
+        document.getElementById('apiClientId').value = newClientId;
+        document.getElementById('apiSecretKey').value = newSecret;
+
+        // Reset visibility to password mask
+        const field = document.getElementById('apiSecretKey');
+        field.type = "password";
+        document.getElementById('secretEyeIcon').className = "fa-solid fa-eye";
+        document.getElementById('toggleSecretBtn').title = "Show Secret";
+
+        showToast("🔄 Credentials rotated & updated successfully!");
+      }
+    }
+  </script>
+</body>
+</html>

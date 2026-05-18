@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - Premium Dashboard">
+  <title>Dashboard | ASL SMS</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- SIDEBAR -->
+  <aside id="sidebar">
+    <div class="logo-container">
+      <a href="index.html" style="display: block;">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS">
+      </a>
+    </div>
+
+    <div class="sidebar-menu">
+      <div class="menu-group">
+        <a href="dashboard.html" class="menu-item active">
+          <div class="menu-item-left">
+            <i class="fa-solid fa-chart-simple"></i>
+            <span>Dashboards</span>
+          </div>
+        </a>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Manage & Items</div>
+        <div class="menu-group">
+          <!-- Expandable Manage Items -->
+          <div class="menu-item" onclick="toggleSubmenu()" id="manageTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-folder-open"></i>
+              <span>Manage Items</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="submenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="submenuList">
+            <a href="sender-ids.html" class="submenu-item" id="subitem-sender">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Sender Ids
+            </a>
+            <a href="templates.html" class="submenu-item" id="subitem-templates">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Manage Templates
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Report</div>
+        <div class="menu-group">
+          <a href="sent-items.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-paper-plane"></i>
+              <span>Sent Items</span>
+            </div>
+          </a>
+          <a href="si-lookup.html" class="menu-item">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <span>Si Lookup</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="menu-section-label">Developer</div>
+        <div class="menu-group">
+          <!-- Expandable Developer Trigger -->
+          <div class="menu-item" onclick="toggleDevSubmenu()" id="devTrigger">
+            <div class="menu-item-left">
+              <i class="fa-solid fa-code"></i>
+              <span>Developer</span>
+            </div>
+            <i class="fa-solid fa-chevron-down" id="devSubmenuArrow" style="font-size: 11px;"></i>
+          </div>
+          <div class="submenu-list" id="devSubmenuList">
+            <a href="api-keys.html" class="submenu-item" id="subitem-apikeys">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Api Keys
+            </a>
+            <a href="docs.html" class="submenu-item" id="subitem-docs">
+              <i class="fa-solid fa-circle" style="font-size: 6px; margin-right: 4px;"></i>Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="main-wrapper">
+    <!-- HEADER -->
+    <header>
+      <div class="header-left">
+        <button class="menu-toggle" onclick="toggleSidebar()">
+          <i class="fa-solid fa-bars" style="font-size: 16px;"></i>
+        </button>
+        <div class="search-bar">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" placeholder="Search (Ctrl+/)">
+        </div>
+      </div>
+
+      <div class="header-right">
+        <!-- balance -->
+        <div class="balance-badge">
+          <i class="fa-solid fa-wallet"></i>
+          <span id="header-balance">907.96 SMS</span>
+          <button class="balance-add-btn" onclick="addBalance()" title="Add Balance">+</button>
+        </div>
+
+        <!-- PROFILE DROPDOWN CONTAINER -->
+        <div class="profile-container">
+          <div class="profile-trigger" id="profileTrigger" onclick="toggleDropdown(event)">
+            <div class="profile-avatar-wrap">
+              <img class="profile-avatar" src="assets/img/avatars/1.jpg" alt="Avatar">
+              <span class="profile-status"></span>
+            </div>
+            <i class="fa-solid fa-chevron-down" style="font-size: 10px; color: #64748b; margin-left: 2px;"></i>
+          </div>
+
+          <!-- Dropdown Panel -->
+          <div class="dropdown-panel" id="profileDropdown">
+            <div class="dropdown-header">
+              <div class="dropdown-name" id="dropdown-username">Admin User</div>
+              <div class="dropdown-status-row">
+                <span class="dropdown-status-dot"></span>
+                <span>Active</span>
+              </div>
+              <div class="dropdown-badge" id="dropdown-userrole">Admin</div>
+            </div>
+            <div class="dropdown-list">
+              <a href="api-keys.html" class="dropdown-link">
+                <i class="fa-solid fa-gear"></i>
+                <span>Settings</span>
+              </a>
+              <a class="dropdown-link logout-btn" onclick="handleLogout()">
+                <i class="fa-solid fa-right-from-bracket"></i>
+                <span>Log Out</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENT -->
+    <div class="page-content" id="view-container">
+      <div class="view-title-container">
+        <h2 class="view-title" id="welcome-message">Welcome Back!</h2>
+        <p class="view-subtitle">Here is what's happening with your bulk campaigns today.</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card brand">
+          <div class="stat-left">
+            <div class="stat-icon-container">
+              <i class="fa-solid fa-paper-plane"></i>
+            </div>
+            <div class="stat-label-container">
+              <span class="stat-label">Transaction</span>
+              <span class="stat-subtext"><span>0%</span> From the beginning</span>
+            </div>
+          </div>
+          <div class="stat-value">1000</div>
+        </div>
+
+        <div class="stat-card warning">
+          <div class="stat-left">
+            <div class="stat-icon-container">
+              <i class="fa-solid fa-list-check"></i>
+            </div>
+            <div class="stat-label-container">
+              <span class="stat-label">Services</span>
+              <span class="stat-subtext"><span>0%</span> From the beginning</span>
+            </div>
+          </div>
+          <div class="stat-value" id="stats-services-count">2</div>
+        </div>
+
+        <div class="stat-card danger">
+          <div class="stat-left">
+            <div class="stat-icon-container">
+              <i class="fa-solid fa-circle-dollar-to-slot"></i>
+            </div>
+            <div class="stat-label-container">
+              <span class="stat-label">Earnings</span>
+              <span class="stat-subtext"><span>0%</span> From the beginning</span>
+            </div>
+          </div>
+          <div class="stat-value">0</div>
+        </div>
+
+        <div class="stat-card info">
+          <div class="stat-left">
+            <div class="stat-icon-container">
+              <i class="fa-solid fa-wallet"></i>
+            </div>
+            <div class="stat-label-container">
+              <span class="stat-label">Balance</span>
+              <span class="stat-subtext"><span>0%</span> From the beginning</span>
+            </div>
+          </div>
+          <div class="stat-value" id="dash-balance-value">908</div>
+        </div>
+      </div>
+
+      <div class="dashboard-details-grid">
+        <div class="card-panel">
+          <div class="panel-header">
+            <div class="panel-title-container">
+              <h3 class="panel-title">Campaign Delivery Overview</h3>
+              <span class="panel-subtitle">Live campaign status breakdown</span>
+            </div>
+            <button class="panel-action-btn">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </button>
+          </div>
+
+          <div class="progress-bar-composite">
+            <div class="progress-segment on-the-way" style="width: 39.7%" title="Delivered: 39.7%">39.7%</div>
+            <div class="progress-segment unloading" style="width: 28.3%" title="Submitted: 28.3%">28.3%</div>
+            <div class="progress-segment loading" style="width: 17.4%" title="Rejected: 17.4%">17.4%</div>
+            <div class="progress-segment waiting" style="width: 14.6%" title="Queued: 14.6%">14.6%</div>
+          </div>
+
+          <div class="overview-list">
+            <div class="overview-item">
+              <div class="overview-item-left">
+                <span class="dot-indicator on-the-way"></span>
+                <span class="overview-item-name">Delivered (Success)</span>
+              </div>
+              <div class="overview-item-right">
+                <span class="overview-item-duration">Avg latency: 0.8s</span>
+                <span class="overview-item-percentage">39.7%</span>
+              </div>
+            </div>
+            <div class="overview-item">
+              <div class="overview-item-left">
+                <span class="dot-indicator unloading"></span>
+                <span class="overview-item-name">Submitted (Pending)</span>
+              </div>
+              <div class="overview-item-right">
+                <span class="overview-item-duration">Avg latency: 1.5s</span>
+                <span class="overview-item-percentage">28.3%</span>
+              </div>
+            </div>
+            <div class="overview-item">
+              <div class="overview-item-left">
+                <span class="dot-indicator loading"></span>
+                <span class="overview-item-name">Rejected (Format)</span>
+              </div>
+              <div class="overview-item-right">
+                <span class="overview-item-duration">Error code: 403</span>
+                <span class="overview-item-percentage">17.4%</span>
+              </div>
+            </div>
+            <div class="overview-item">
+              <div class="overview-item-left">
+                <span class="dot-indicator waiting"></span>
+                <span class="overview-item-name">Queued (Spillover)</span>
+              </div>
+              <div class="overview-item-right">
+                <span class="overview-item-duration">Buffer queue</span>
+                <span class="overview-item-percentage">14.6%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-panel">
+          <div class="panel-header">
+            <div class="panel-title-container">
+              <h3 class="panel-title">Message Traffic Trends</h3>
+              <span class="panel-subtitle">Total messages dispatched: 238.5k</span>
+            </div>
+            <select class="select-dropdown">
+              <option>January</option>
+              <option>February</option>
+            </select>
+          </div>
+
+          <div class="chart-container">
+            <svg width="100%" height="220" viewBox="0 0 600 250" preserveAspectRatio="none" style="display: block;">
+              <line x1="40" y1="20" x2="580" y2="20" stroke="#f1f5f9" stroke-width="1" />
+              <line x1="40" y1="70" x2="580" y2="70" stroke="#f1f5f9" stroke-width="1" />
+              <line x1="40" y1="120" x2="580" y2="120" stroke="#f1f5f9" stroke-width="1" />
+              <line x1="40" y1="170" x2="580" y2="170" stroke="#f1f5f9" stroke-width="1" />
+              <line x1="40" y1="220" x2="580" y2="220" stroke="#e2e8f0" stroke-width="1" />
+
+              <text x="30" y="24" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">50%</text>
+              <text x="30" y="74" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">37.5%</text>
+              <text x="30" y="124" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">25%</text>
+              <text x="30" y="174" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">12.5%</text>
+              <text x="30" y="224" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="end">0%</text>
+
+              <rect x="65" y="90" width="12" height="130" rx="3" fill="#f97316" />
+              <rect x="115" y="50" width="12" height="170" rx="3" fill="#f97316" />
+              <rect x="165" y="80" width="12" height="140" rx="3" fill="#f97316" />
+              <rect x="215" y="60" width="12" height="160" rx="3" fill="#f97316" />
+              <rect x="265" y="70" width="12" height="150" rx="3" fill="#f97316" />
+              <rect x="315" y="30" width="12" height="190" rx="3" fill="#f97316" />
+              <rect x="365" y="40" width="12" height="180" rx="3" fill="#f97316" />
+              <rect x="415" y="55" width="12" height="165" rx="3" fill="#f97316" />
+              <rect x="465" y="50" width="12" height="170" rx="3" fill="#f97316" />
+              <rect x="515" y="60" width="12" height="160" rx="3" fill="#f97316" />
+
+              <path d="M71 140 Q 121 110, 171 135 T 271 115 T 371 60 T 471 125 T 521 100" fill="none" stroke="#0284c7" stroke-width="3" />
+
+              <circle cx="71" cy="140" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="121" cy="115" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="171" cy="135" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="221" cy="110" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="271" cy="125" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="321" cy="65" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="371" cy="95" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="421" cy="80" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="471" cy="115" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+              <circle cx="521" cy="95" r="4" fill="#ffffff" stroke="#0284c7" stroke-width="2.5" />
+
+              <text x="71" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">1 Jan</text>
+              <text x="121" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">2 Jan</text>
+              <text x="171" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">3 Jan</text>
+              <text x="221" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">4 Jan</text>
+              <text x="271" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">5 Jan</text>
+              <text x="321" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">6 Jan</text>
+              <text x="371" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">7 Jan</text>
+              <text x="421" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">8 Jan</text>
+              <text x="471" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">9 Jan</text>
+              <text x="521" y="240" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">10 Jan</text>
+            </svg>
+          </div>
+
+          <div class="chart-legend">
+            <div class="legend-item">
+              <span class="legend-color shipment"></span>
+              <span>Dispatched SMS</span>
+            </div>
+            <div class="legend-item">
+              <span class="legend-color delivery"></span>
+              <span>Delivered SMS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST -->
+  <div class="toast" id="toast">Notification</div>
+
+  <!-- SCRIPTS -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    const user = checkSession();
+    if (user) {
+      document.getElementById('welcome-message').textContent = `Welcome Back, ${user.name || 'Admin User'}!`;
+      document.getElementById('dropdown-username').textContent = user.name || 'Admin User';
+      document.getElementById('dropdown-userrole').textContent = user.role === 'Administrator' ? 'Admin' : (user.role || 'Admin');
+      document.getElementById('header-balance').textContent = parseFloat(user.balance || 907.96).toFixed(2) + ' SMS';
+      document.getElementById('dash-balance-value').textContent = Math.round(user.balance || 908);
+      
+      // Calculate dynamic services count from local storage
+      const senders = JSON.parse(localStorage.getItem('asl_senders') || '[]');
+      const templates = JSON.parse(localStorage.getItem('asl_templates_full') || '[]');
+      document.getElementById('stats-services-count').textContent = senders.length + templates.length;
+    }
+  </script>
+</body>
+</html>

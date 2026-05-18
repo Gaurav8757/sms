@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ASL SMS - High-Performance Bulk SMS & Notification Platform">
+  <title>ASL SMS | Bulk Messaging Platform</title>
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Standardized Styles -->
+  <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    /* ---- Header/Navbar ---- */
+    header {
+      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.8);
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      transition: all 0.3s ease;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo-wrap {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      margin-bottom: 0 !important;
+    }
+
+    .logo-img {
+      height: 30px;
+      object-fit: contain;
+      margin-bottom: 0 !important;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-link:hover {
+      color: var(--brand);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-text {
+      color: var(--text-muted);
+    }
+
+    .btn-text:hover {
+      color: var(--brand);
+    }
+
+    .btn-primary {
+      background: var(--brand);
+      color: white;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.15);
+      border: 1px solid transparent;
+    }
+
+    .btn-primary:hover {
+      background: var(--brand-dark);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* ---- Hero Section ---- */
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 24px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero-content {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .hero-tag {
+      align-self: flex-start;
+      background: #e0f2fe;
+      border: 1px solid #bae6fd;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--brand-dark);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .hero-title {
+      font-size: 3.25rem;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1.5px;
+      color: var(--text);
+    }
+
+    .hero-title span {
+      background: linear-gradient(135deg, var(--brand), var(--brand-light));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.6;
+      color: #475569;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    /* Floating dashboard mockup */
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .mockup-card {
+      width: 100%;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.02);
+      position: relative;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .mockup-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .mockup-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red { background-color: #ef4444; }
+    .mockup-dot.yellow { background-color: #f59e0b; }
+    .mockup-dot.green { background-color: #10b981; }
+
+    .mockup-body {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .mockup-bar {
+      height: 12px;
+      background: #f1f5f9;
+      border-radius: 4px;
+      width: 100%;
+    }
+
+    .mockup-bar.short {
+      width: 60%;
+    }
+
+    .mockup-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin: 8px 0;
+    }
+
+    .mockup-stat-box {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      text-align: center;
+    }
+
+    .mockup-stat-val {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .mockup-stat-lbl {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      margin-top: 4px;
+      font-weight: 600;
+    }
+
+    /* ---- Features Section ---- */
+    .features {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    .section-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 50px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    .section-desc {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .feature-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.02);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 20px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.05);
+      border-color: var(--brand-light);
+    }
+
+    .feature-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: #f0f9ff;
+      color: var(--brand);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .feature-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .feature-desc {
+      font-size: 0.9rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* ---- CTA Section ---- */
+    .cta {
+      max-width: 1000px;
+      margin: 40px auto 80px auto;
+      padding: 0 24px;
+    }
+
+    .cta-card {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      border-radius: 24px;
+      padding: 50px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 25px -5px rgba(2, 132, 199, 0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      color: white;
+    }
+
+    .cta-title {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .cta-desc {
+      font-size: 1rem;
+      color: #e0f2fe;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .cta-card .btn-outline {
+      background: rgba(255,255,255,0.1);
+      border-color: rgba(255,255,255,0.25);
+      color: white;
+    }
+    .cta-card .btn-outline:hover {
+      background: rgba(255,255,255,0.2);
+    }
+
+    .cta-card .btn-primary {
+      background: white;
+      color: var(--brand-dark);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .cta-card .btn-primary:hover {
+      background: #f8fafc;
+      transform: translateY(-1px);
+    }
+
+    /* ---- Footer ---- */
+    footer {
+      background: var(--bg-card);
+      border-top: 1px solid var(--border);
+      padding: 80px 24px 40px 24px;
+      margin-top: 80px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr 0.8fr 1fr;
+      gap: 48px;
+    }
+
+    .footer-col {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .footer-logo-desc {
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-top: 8px;
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .footer-social-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: #f1f5f9;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+    }
+
+    .footer-social-icon:hover {
+      background: var(--brand);
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 10px var(--brand-glow);
+    }
+
+    .footer-title {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      list-style: none;
+    }
+
+    .footer-link {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s ease, padding-left 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .footer-link:hover {
+      color: var(--brand);
+      padding-left: 4px;
+    }
+
+    .footer-newsletter-desc {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+    }
+
+    .footer-newsletter-form {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .footer-newsletter-form input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      outline: none;
+      background: #f8fafc;
+      transition: all 0.2s;
+    }
+
+    .footer-newsletter-form input:focus {
+      background: white;
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px var(--brand-glow);
+    }
+
+    .footer-newsletter-form button {
+      padding: 10px 16px;
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .footer-newsletter-form button:hover {
+      background: var(--brand-hover);
+    }
+
+    /* Footer Bottom copyright */
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 60px auto 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copyright {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .footer-bottom-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-bottom-link {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .footer-bottom-link:hover {
+      color: var(--brand);
+    }
+
+    /* ---- Responsive ---- */
+    @media (max-width: 960px) {
+      .hero {
+        grid-template-columns: 1fr;
+        padding: 50px 24px;
+        text-align: center;
+      }
+      .hero-tag {
+        align-self: center;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .hero-title {
+        font-size: 2.5rem;
+      }
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+      .cta-card {
+        padding: 40px 24px;
+      }
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      footer {
+        padding: 60px 20px 30px 20px;
+        margin-top: 60px;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 40px;
+        gap: 12px;
+      }
+      .footer-bottom-links {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-decor"></div>
+  <div class="bg-grid"></div>
+
+  <!-- NAVBAR -->
+  <header>
+    <div class="nav-container">
+      <a href="index.html" class="logo-wrap">
+        <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS Logo">
+      </a>
+
+      <div class="nav-links">
+        <a href="#features" class="nav-link"><i class="fa-solid fa-list-check" style="margin-right: 6px;"></i>Features</a>
+        <a href="#" class="nav-link" onclick="triggerAppDownload(event)"><i class="fa-solid fa-download" style="margin-right: 6px;"></i>Download App</a>
+      </div>
+
+      <div class="nav-actions">
+        <a href="login.html" class="btn btn-outline" id="signInBtn"><i class="fa-regular fa-user"></i>Sign In</a>
+        <a href="dashboard.html" class="btn btn-primary" id="launchBtn" style="display: none;"><i class="fa-solid fa-chart-simple"></i>Go to Dashboard</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-content">
+      <span class="hero-tag">⚡ Next-Gen SMS Platform</span>
+      <h1 class="hero-title">Scale your reach with <span>ASL SMS</span>.</h1>
+      <p class="hero-desc">Deploy high-performance marketing and verification campaigns across international gateways with instant delivery guarantees, real-time tracking, and automated DLT template approvals.</p>
+      
+      <div class="hero-actions">
+        <a href="login.html" class="btn btn-primary" id="heroPrimaryBtn"><i class="fa-solid fa-right-to-bracket"></i>Login to Access Platform</a>
+        <a href="#" class="btn btn-outline" onclick="triggerAppDownload(event)"><i class="fa-solid fa-download"></i>Download Desktop App</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mockup-card">
+        <div class="mockup-header">
+          <span class="mockup-dot red"></span>
+          <span class="mockup-dot yellow"></span>
+          <span class="mockup-dot green"></span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-bar" style="width: 40%"></div>
+          <div class="mockup-bar"></div>
+          <div class="mockup-bar short"></div>
+          
+          <div class="mockup-stats-grid">
+            <div class="mockup-stat-box">
+              <div class="mockup-stat-val">907</div>
+              <div class="mockup-stat-lbl">SMS Bal.</div>
+            </div>
+            <div class="mockup-stat-box" style="background: #f0fdf4; border-color: #bbf7d0;">
+              <div class="mockup-stat-val" style="color: #166534;">100%</div>
+              <div class="mockup-stat-lbl" style="color: #15803d;">Uptime</div>
+            </div>
+            <div class="mockup-stat-box">
+              <div class="mockup-stat-val">1000</div>
+              <div class="mockup-stat-lbl">Sent logs</div>
+            </div>
+          </div>
+
+          <div class="mockup-bar"></div>
+          <div class="mockup-bar" style="width: 80%;"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features" id="features">
+    <div class="section-header">
+      <h2 class="section-title">Engineered for Developers & Businesses</h2>
+      <p class="section-desc">Experience an ultra-fast gateway with robust APIs, interactive dashboard controls, and comprehensive sent logging tools.</p>
+    </div>
+
+    <div class="features-grid">
+      <!-- Card 1 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-list-check"></i>
+        </div>
+        <h3 class="feature-title">Templates Manager</h3>
+        <p class="feature-desc">Create, edit, review, and delete approved messaging templates with dynamic parameters and automatic DLT alignment checkups.</p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+        <h3 class="feature-title">DLT Sender ID Lookup</h3>
+        <p class="feature-desc">Search, verify, and monitor custom 6-character alphabetic Sender IDs against live registrar databases and compliance records instantly.</p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="feature-card">
+        <div class="feature-icon">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <h3 class="feature-title">Developer-First APIs</h3>
+        <p class="feature-desc">Integrate programmatic bulk SMS delivery in under 5 minutes with our clean Node.js / Python SDK wrappers and sandboxed API key management.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta">
+    <div class="cta-card">
+      <h2 class="cta-title">Start Sending Message Campaigns Today</h2>
+      <p class="cta-desc">Sign in using administrative credentials to access full dynamic dashboards, adjust template parameters, run mock SI lookups, and test real API dispatchers.</p>
+      
+      <div class="hero-actions">
+        <a href="login.html" class="btn btn-primary" id="ctaPrimaryBtn"><i class="fa-solid fa-circle-play"></i>Get Started Free</a>
+        <a href="#" class="btn btn-outline" onclick="triggerAppDownload(event)"><i class="fa-solid fa-download"></i>Download Mobile App</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-container">
+      <!-- Col 1: Brand & Logo -->
+      <div class="footer-col">
+        <a href="index.html" class="logo-wrap" style="text-align: left; margin-bottom: 0;">
+          <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS Logo">
+        </a>
+        <p class="footer-logo-desc">ASL SMS is a premium enterprise-grade Bulk messaging, API gateway, and compliance management platform enabling businesses globally.</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social-icon" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="Github"><i class="fa-brands fa-youtube"></i></a>
+          <a href="#" class="footer-social-icon" aria-label="Status"><i class="fa-brands fa-whatsapp"></i></a>
+        </div>
+      </div>
+
+      <!-- Col 2: Platform Features -->
+      <div class="footer-col">
+        <h4 class="footer-title">Platform</h4>
+        <ul class="footer-links">
+          <li><a href="#features" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>Features</a></li>
+          <li><a href="login.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>DLT Sender ID</a></li>
+          <li><a href="login.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>Template Manager</a></li>
+          <li><a href="dashboard.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>Admin Dashboard</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 3: Support & Resources -->
+      <div class="footer-col">
+        <h4 class="footer-title">Developer</h4>
+        <ul class="footer-links">
+          <li><a href="login.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>API Reference</a></li>
+          <li><a href="login.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>SDKs & Wrappers</a></li>
+          <li><a href="login.html" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>API Keys Sandbox</a></li>
+          <li><a href="#" class="footer-link"><i class="fa-solid fa-angle-right" style="font-size: 10px; margin-right: 6px; opacity: 0.7;"></i>System Status</a></li>
+        </ul>
+      </div>
+
+      <!-- Col 4: Newsletter -->
+      <div class="footer-col">
+        <h4 class="footer-title">Join Newsletter</h4>
+        <p class="footer-newsletter-desc">Subscribe to get the latest compliance updates and feature announcements.</p>
+        <form class="footer-newsletter-form" onsubmit="event.preventDefault(); showToast('🎉 Subscribed successfully!');">
+          <input type="email" placeholder="name@company.com" required>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Footer Bottom copyright -->
+    <div class="footer-bottom">
+      <div class="footer-copyright">
+        © 2026 ASL SMS. All rights reserved. &nbsp;·&nbsp; Powered by <a href="#" class="footer-bottom-link">ASL Solutions Tech Private Limited.</a>
+      </div>
+      <div class="footer-bottom-links">
+        <a href="#" class="footer-bottom-link">Privacy Policy</a>
+        <a href="#" class="footer-bottom-link">Terms of Service</a>
+        <a href="#" class="footer-bottom-link">Security Policies</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Core Utilities -->
+  <script src="assets/js/index.js"></script>
+  <script>
+    // Download App handler with premium micro-toasts
+    function triggerAppDownload(e) {
+      if (e) e.preventDefault();
+      showToast('📥 ASL SMS App download started automatically...');
+      setTimeout(() => {
+        showToast('🎉 ASL_SMS_Setup.exe successfully downloaded! Open to install.');
+      }, 1500);
+    }
+
+    // Dynamic session and button layout routing
+    document.addEventListener('DOMContentLoaded', () => {
+      const userData = sessionStorage.getItem('asl_user');
+      
+      const signInBtn = document.getElementById('signInBtn');
+      const launchBtn = document.getElementById('launchBtn');
+      
+      const heroPrimaryBtn = document.getElementById('heroPrimaryBtn');
+      const ctaPrimaryBtn = document.getElementById('ctaPrimaryBtn');
+
+      if (userData) {
+        // User is logged in: Route all actions straight to dashboard
+        if (signInBtn) signInBtn.style.display = 'none';
+        
+        if (launchBtn) {
+          launchBtn.style.display = 'inline-flex';
+        }
+        
+        if (heroPrimaryBtn) {
+          heroPrimaryBtn.innerHTML = '<i class="fa-solid fa-chart-simple"></i>Go to Dashboard';
+          heroPrimaryBtn.href = 'dashboard.html';
+        }
+        
+        if (ctaPrimaryBtn) {
+          ctaPrimaryBtn.innerHTML = '<i class="fa-solid fa-chart-simple"></i>Go to Dashboard';
+          ctaPrimaryBtn.href = 'dashboard.html';
+        }
+      } else {
+        // User is not logged in: Clean flow to portal
+        if (signInBtn) signInBtn.style.display = 'inline-flex';
+        if (launchBtn) launchBtn.style.display = 'none';
+      }
+    });
+  </script>
+
+</body>
+</html>
