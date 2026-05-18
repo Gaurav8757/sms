@@ -33,6 +33,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
     }
 
     .logo-wrap {
@@ -46,6 +47,14 @@
       height: 30px;
       object-fit: contain;
       margin-bottom: 0 !important;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex: 1;
+      margin-left: 40px;
     }
 
     .nav-links {
@@ -70,6 +79,24 @@
       display: flex;
       align-items: center;
       gap: 16px;
+    }
+
+    .nav-toggle {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      cursor: pointer;
+      padding: 6px 10px;
+      border-radius: 6px;
+      transition: all 0.15s ease;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nav-toggle:hover {
+      background: rgba(0, 0, 0, 0.05);
     }
 
     .btn {
@@ -563,6 +590,48 @@
 
     /* ---- Responsive ---- */
     @media (max-width: 960px) {
+      .nav-toggle {
+        display: flex; /* Show hamburger button */
+      }
+
+      .nav-menu {
+        display: none; /* Hide default flex layout */
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #ffffff;
+        border-bottom: 1px solid var(--border);
+        padding: 24px;
+        gap: 24px;
+        margin-left: 0;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        align-items: stretch;
+        text-align: center;
+        z-index: 99;
+      }
+
+      .nav-menu.open {
+        display: flex; /* Open mobile dropdown! */
+      }
+
+      .nav-links {
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .nav-actions {
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+      }
+
+      .nav-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
+
       .hero {
         grid-template-columns: 1fr;
         padding: 50px 24px;
@@ -590,20 +659,44 @@
     }
 
     @media (max-width: 560px) {
+      .hero-actions {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+      }
+      .hero-actions .btn {
+        width: 100%;
+        justify-content: center;
+      }
       footer {
         padding: 60px 20px 30px 20px;
         margin-top: 60px;
       }
       .footer-container {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr 1fr; /* Keep 2 side-by-side columns! */
         gap: 32px;
+      }
+      .footer-container .footer-col:first-child {
+        grid-column: span 2; /* Brand spans full width */
+      }
+      .footer-container .footer-col:last-child {
+        grid-column: span 2; /* Newsletter spans full width */
       }
       .footer-bottom {
         flex-direction: column;
         align-items: center;
         text-align: center;
         margin-top: 40px;
-        gap: 12px;
+        gap: 16px;
+      }
+      .footer-copyright {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        text-align: center;
+      }
+      .copyright-separator {
+        display: none; /* Hide dot separator on mobile */
       }
       .footer-bottom-links {
         justify-content: center;
@@ -625,14 +718,22 @@
         <img class="logo-img" src="assets/img/logo/logo.png" alt="ASL SMS Logo">
       </a>
 
-      <div class="nav-links">
-        <a href="#features" class="nav-link"><i class="fa-solid fa-list-check" style="margin-right: 6px;"></i>Features</a>
-        <a href="#" class="nav-link" onclick="triggerAppDownload(event)"><i class="fa-solid fa-download" style="margin-right: 6px;"></i>Download App</a>
-      </div>
+      <!-- Hamburger mobile button -->
+      <button class="nav-toggle" id="navToggleBtn" onclick="toggleMobileNav(event)" aria-label="Toggle Navigation">
+        <i class="fa-solid fa-bars" id="navToggleIcon"></i>
+      </button>
 
-      <div class="nav-actions">
-        <a href="login.html" class="btn btn-outline" id="signInBtn"><i class="fa-regular fa-user"></i>Sign In</a>
-        <a href="dashboard.html" class="btn btn-primary" id="launchBtn" style="display: none;"><i class="fa-solid fa-chart-simple"></i>Go to Dashboard</a>
+      <!-- Main Navigation Menu (Flex wrappers) -->
+      <div class="nav-menu" id="navMenu">
+        <div class="nav-links">
+          <a href="#features" class="nav-link" onclick="closeMobileNav()"><i class="fa-solid fa-list-check" style="margin-right: 6px;"></i>Features</a>
+          <a href="#" class="nav-link" onclick="triggerAppDownload(event); closeMobileNav();"><i class="fa-solid fa-download" style="margin-right: 6px;"></i>Download App</a>
+        </div>
+
+        <div class="nav-actions">
+          <a href="login.html" class="btn btn-outline" id="signInBtn"><i class="fa-regular fa-user"></i>Sign In</a>
+          <a href="dashboard.html" class="btn btn-primary" id="launchBtn" style="display: none;"><i class="fa-solid fa-chart-simple"></i>Go to Dashboard</a>
+        </div>
       </div>
     </div>
   </header>
@@ -787,7 +888,9 @@
     <!-- Footer Bottom copyright -->
     <div class="footer-bottom">
       <div class="footer-copyright">
-        © 2026 ASL SMS. All rights reserved. &nbsp;·&nbsp; Powered by <a href="#" class="footer-bottom-link">ASL Solutions Tech Private Limited.</a>
+        <span class="copyright-rights">© 2026 ASL SMS. All rights reserved.</span>
+        <span class="copyright-separator">&nbsp;·&nbsp;</span>
+        <span class="copyright-powered">Powered by <a href="#" class="footer-bottom-link">ASL Solutions Tech Private Limited.</a></span>
       </div>
       <div class="footer-bottom-links">
         <a href="#" class="footer-bottom-link">Privacy Policy</a>
@@ -808,6 +911,35 @@
         showToast('🎉 ASL_SMS_Setup.exe successfully downloaded! Open to install.');
       }, 1500);
     }
+
+    // Mobile navigation drawer toggle and click handlers
+    function toggleMobileNav(e) {
+      if (e) e.stopPropagation();
+      const menu = document.getElementById('navMenu');
+      const icon = document.getElementById('navToggleIcon');
+      if (!menu || !icon) return;
+
+      menu.classList.toggle('open');
+      const isOpen = menu.classList.contains('open');
+      icon.className = isOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars';
+    }
+
+    function closeMobileNav() {
+      const menu = document.getElementById('navMenu');
+      const icon = document.getElementById('navToggleIcon');
+      if (menu && menu.classList.contains('open')) {
+        menu.classList.remove('open');
+        if (icon) icon.className = 'fa-solid fa-bars';
+      }
+    }
+
+    // Close mobile nav when clicking outside the navbar
+    document.addEventListener('click', (e) => {
+      const header = document.querySelector('header');
+      if (header && !header.contains(e.target)) {
+        closeMobileNav();
+      }
+    });
 
     // Dynamic session and button layout routing
     document.addEventListener('DOMContentLoaded', () => {

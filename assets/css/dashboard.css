@@ -844,12 +844,14 @@ th {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  white-space: nowrap;
 }
 
 td {
   padding: 12px 16px;
   border-bottom: 1px solid var(--border-color);
   color: var(--text-dark);
+  white-space: nowrap;
 }
 
 tr:last-child td {
@@ -1255,6 +1257,20 @@ tbody tr:hover {
 @media (max-width: 600px) {
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+  .search-bar {
+    display: none;
+  }
+  .header-left {
+    max-width: fit-content;
+  }
+  header {
+    padding: 0 12px;
+  }
+  .balance-badge {
+    padding: 5px 10px;
+    font-size: 12px;
+    gap: 6px;
   }
 }
 

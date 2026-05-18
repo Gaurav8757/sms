@@ -451,3 +451,16 @@ input::placeholder {
   z-index: 2;
   box-shadow: 0 4px 10px rgba(16, 185, 129, 0.15);
 }
+
+/* Responsive Login Footer */
+
+  .login-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+  .login-footer .footer-divider {
+    display: none;
+  }
+

@@ -22,6 +22,8 @@
       grid-template-columns: 240px 1fr;
       gap: 32px;
       align-items: start;
+      min-width: 0;
+      max-width: 100%;
     }
     .docs-toc-sticky {
       position: sticky;
@@ -63,6 +65,8 @@
       display: flex;
       flex-direction: column;
       gap: 48px;
+      min-width: 0;
+      max-width: 100%;
     }
     .docs-section {
       background: var(--bg-card);
@@ -71,6 +75,9 @@
       padding: 32px;
       box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
+      min-width: 0;
+      max-width: 100%;
+      box-sizing: border-box;
     }
     .docs-section:hover {
       transform: translateY(-2px);
@@ -243,6 +250,38 @@
       }
       .sandbox-panel-row {
         grid-template-columns: 1fr;
+      }
+    }
+    @media (max-width: 768px) {
+      .docs-section {
+        padding: 20px 16px;
+      }
+      .docs-section-title {
+        font-size: 18px;
+        padding-bottom: 8px;
+        margin-bottom: 12px;
+      }
+      .api-endpoint-badge {
+        padding: 6px 12px;
+        font-size: 11px;
+        white-space: normal;
+        word-break: break-all;
+        margin-bottom: 16px;
+      }
+      .docs-para {
+        font-size: 13px;
+        line-height: 1.5;
+      }
+      .code-editor-block {
+        padding: 16px;
+      }
+      .docs-tab-btn {
+        padding: 6px 10px;
+        font-size: 11px;
+      }
+      .sandbox-console {
+        min-height: 220px;
+        padding: 12px;
       }
     }
   </style>
