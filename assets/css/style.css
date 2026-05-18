@@ -1,11 +1,14 @@
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 :root {
-  --brand: #0284c7; /* Sky Blue */
+  --brand: #0284c7;
+  /* Sky Blue */
   --brand-hover: #0369a1;
   --brand-dark: #0369a1;
   --brand-light: #38bdf8;
@@ -26,7 +29,8 @@
   --font: 'Inter', sans-serif;
 }
 
-body, html {
+body,
+html {
   font-family: var(--font);
   background-color: var(--bg-main);
   color: var(--text);
@@ -41,13 +45,16 @@ a {
   width: 6px;
   height: 6px;
 }
+
 ::-webkit-scrollbar-track {
   background: transparent;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #cbd5e1;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
@@ -73,7 +80,7 @@ a {
   z-index: 0;
   pointer-events: none;
   background: radial-gradient(circle 800px at 100% -100px, #e0f2fe 0%, transparent 80%),
-              radial-gradient(circle 800px at -200px 100%, #f0fdf4 0%, transparent 80%);
+    radial-gradient(circle 800px at -200px 100%, #f0fdf4 0%, transparent 80%);
 }
 
 .bg-grid {
@@ -87,7 +94,10 @@ a {
 }
 
 /* ---- Unified Clean Card Canvas ---- */
-.login-card, .reset-card, .change-card, .success-card {
+.login-card,
+.reset-card,
+.change-card,
+.success-card {
   width: 100%;
   max-width: 440px;
   background-color: var(--bg-card);
@@ -101,8 +111,15 @@ a {
 }
 
 @keyframes slideUp {
-  from { opacity: 0; transform: translateY(15px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ---- Logo & Typography ---- */
@@ -110,11 +127,13 @@ a {
   text-align: center;
   margin-bottom: 28px;
 }
+
 .logo-img {
   height: 34px;
   object-fit: contain;
   margin-bottom: 8px;
 }
+
 .logo-subtitle {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -128,6 +147,7 @@ a {
   color: var(--text);
   margin-bottom: 6px;
 }
+
 .card-desc {
   font-size: 0.8rem;
   color: var(--text-muted);
@@ -148,9 +168,11 @@ a {
   gap: 8px;
   align-items: flex-start;
 }
+
 .hint-box i {
   margin-top: 2px;
 }
+
 .hint-box strong {
   font-weight: 700;
 }
@@ -159,6 +181,7 @@ a {
 .form-group {
   margin-bottom: 18px;
 }
+
 label {
   display: block;
   font-size: 0.75rem;
@@ -172,6 +195,7 @@ label {
 .input-wrap {
   position: relative;
 }
+
 .input-wrap i.input-icon {
   position: absolute;
   left: 14px;
@@ -181,7 +205,9 @@ label {
   font-size: 14px;
 }
 
-input[type="email"], input[type="password"], input[type="text"] {
+input[type="email"],
+input[type="password"],
+input[type="text"] {
   width: 100%;
   padding: 11px 14px 11px 38px;
   background: #f8fafc;
@@ -193,11 +219,13 @@ input[type="email"], input[type="password"], input[type="text"] {
   transition: all 0.2s;
   outline: none;
 }
+
 input:focus {
   border-color: var(--brand);
   background: #ffffff;
   box-shadow: 0 0 0 3px var(--brand-glow);
 }
+
 input::placeholder {
   color: #cbd5e1;
 }
@@ -217,6 +245,7 @@ input::placeholder {
   align-items: center;
   justify-content: center;
 }
+
 .eye-btn:hover {
   color: var(--brand);
 }
@@ -228,40 +257,47 @@ input::placeholder {
   justify-content: space-between;
   margin-bottom: 22px;
 }
+
 .checkbox-wrap {
   display: flex;
   align-items: center;
   gap: 8px;
   cursor: pointer;
 }
+
 .checkbox-wrap input[type="checkbox"] {
   width: 15px;
   height: 15px;
   accent-color: var(--brand);
   cursor: pointer;
 }
+
 .checkbox-label {
   font-size: 0.78rem;
   color: var(--text-muted);
   font-weight: 500;
 }
+
 .forgot-link {
   font-size: 0.78rem;
   color: var(--brand);
   text-decoration: none;
   font-weight: 600;
 }
+
 .forgot-link:hover {
   color: var(--brand-hover);
   text-decoration: none;
   scale: 1.01;
 }
+
 .forgot-link:active {
   scale: 0.99;
 }
 
 /* ---- Primary Buttons ---- */
-.btn-login, .btn-submit-theme {
+.btn-login,
+.btn-submit-theme {
   width: 100%;
   padding: 12px;
   background: var(--brand);
@@ -279,7 +315,9 @@ input::placeholder {
   gap: 8px;
   text-decoration: none;
 }
-.btn-login:hover, .btn-submit-theme:hover {
+
+.btn-login:hover,
+.btn-submit-theme:hover {
   background: var(--brand-hover);
   box-shadow: 0 6px 14px rgba(2, 132, 199, 0.3);
 }
@@ -288,13 +326,16 @@ input::placeholder {
   display: none;
   width: 16px;
   height: 16px;
-  border: 2px solid rgba(255,255,255,0.3);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   border-top-color: white;
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
+
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ---- Toast Notifications ---- */
@@ -318,6 +359,7 @@ input::placeholder {
   align-items: center;
   gap: 8px;
 }
+
 .toast-msg.show {
   opacity: 1;
   transform: translateX(-50%) translateY(0);
@@ -342,17 +384,20 @@ input::placeholder {
   color: var(--text-muted);
   font-weight: 500;
 }
+
 .login-footer a {
   color: var(--text-muted);
   text-decoration: none;
   font-weight: 500;
   transition: color 0.15s ease;
 }
+
 .login-footer a:hover {
   color: var(--brand-dark);
   text-decoration: none;
   scale: 1.01;
 }
+
 .login-footer a:active {
   scale: 0.99;
 }
@@ -384,14 +429,17 @@ input::placeholder {
   transition: all 0.2s ease;
   width: 100%;
 }
+
 .back-link i {
   font-size: 0.8rem;
   transition: transform 0.2s ease;
 }
+
 .back-link:hover {
   color: var(--brand);
   text-decoration: none;
 }
+
 .back-link:hover i {
   transform: translateX(-4px);
 }
@@ -413,6 +461,7 @@ input::placeholder {
   text-align: center;
   text-decoration: none;
 }
+
 .btn-submit:hover {
   background: var(--brand-hover);
   box-shadow: 0 6px 14px rgba(2, 132, 199, 0.3);
@@ -426,6 +475,7 @@ input::placeholder {
   justify-content: center;
   margin-bottom: 6px;
 }
+
 .pulse-ring {
   position: absolute;
   width: 80px;
@@ -434,10 +484,19 @@ input::placeholder {
   background-color: rgba(16, 185, 129, 0.1);
   animation: pulse 2s infinite;
 }
+
 @keyframes pulse {
-  0% { transform: scale(0.9); opacity: 1; }
-  100% { transform: scale(1.3); opacity: 0; }
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.3);
+    opacity: 0;
+  }
 }
+
 .success-icon-wrap {
   width: 64px;
   height: 64px;
@@ -454,13 +513,13 @@ input::placeholder {
 
 /* Responsive Login Footer */
 
-  .login-footer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4px;
-  }
-  .login-footer .footer-divider {
-    display: none;
-  }
+.login-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
 
+.login-footer .footer-divider {
+  display: none;
+}
